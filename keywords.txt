@@ -1,0 +1,10 @@
+TLC5916	KEYWORD1
+transmit	KEYWORD2
+enableOutput	KEYWORD3
+disableOutput	KEYWORD4
+allOn	KEYWORD5
+allOff	KEYWORD6
+switchToSpecialMode	KEYWORD7
+switchToNormalMode	KEYWORD8
+writeConfiguration	KEYWORD9
+readErrorCodeStatus	KEYWORD10
