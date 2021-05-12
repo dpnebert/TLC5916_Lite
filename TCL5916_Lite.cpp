@@ -51,8 +51,7 @@ void TLC5916::allOn(uint8_t n) {
 	}	
 	transmit(ALL_ON, PACKET_FULL, true);
 }
-void TLC5916::allOff(uint8_t n) {
-	
+void TLC5916::allOff(uint8_t n) {	
 	for(int i = 0; i < n - 1; i++) {
 		transmit(ALL_OFF, PACKET_FULL, false);
 	}	
@@ -81,8 +80,8 @@ uint8_t TLC5916::readErrorCodeStatus() {
 	}
 	digitalWrite(CLK, LOW);  
 	for(uint8_t i = 0; i < 7; i++) {		
-    reading = reading << 1;    
-    digitalWrite(CLK, HIGH);    
+		reading = reading << 1;    
+		digitalWrite(CLK, HIGH);    
 		if(  digitalRead(SDO) ) {
 			reading++;
 		}
@@ -100,8 +99,7 @@ uint8_t TLC5916::readErrorCodeStatus() {
 
 void TLC5916::sendBits(uint8_t d, uint8_t o, uint8_t l, uint8_t c) {
   uint8_t bitMask = 1;
-  for(uint8_t i = 0; i < c; i++) {
-  
+  for(uint8_t i = 0; i < c; i++) {  
     digitalWrite(SDI, (d & bitMask) > 0);
     digitalWrite(OE, (o & bitMask) > 0);
     digitalWrite(LE, (l & bitMask) > 0);
