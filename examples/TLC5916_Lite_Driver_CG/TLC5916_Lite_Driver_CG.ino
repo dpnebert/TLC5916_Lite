@@ -8,7 +8,8 @@
  *  Documentation: http://www.danielnebert.com/tlc5916-lite-arduino-driver-library/
  */ 
 
-#include "TLC5916.h"
+#include "TLC5916_Lite.h"
+
 #define SDI       5
 #define CLK       4
 #define LE        3
