@@ -11,7 +11,7 @@
 
 
 
-#include <TLC5916.h>
+#include "TLC5916_Lite.h"
 
 #define SDI       5
 #define CLK       4
