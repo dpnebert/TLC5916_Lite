@@ -34,7 +34,7 @@
 class TLC5916_Lite
 {
   public:
-    TLC5916(uint8_t sdi, uint8_t clk, uint8_t oe, uint8_t le, uint8_t sdo);
+    TLC5916_Lite(uint8_t sdi, uint8_t clk, uint8_t oe, uint8_t le, uint8_t sdo);
     void transmit(uint8_t p, uint8_t c, bool l);
     void enableOutput();
     void disableOutput();

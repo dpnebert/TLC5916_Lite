@@ -14,7 +14,7 @@
  * You can call these to do work for you
  */
 
-TLC5916::TLC5916(uint8_t sdi, uint8_t clk, uint8_t oe, uint8_t le, uint8_t sdo) {
+TLC5916_Lite::TLC5916_Lite(uint8_t sdi, uint8_t clk, uint8_t oe, uint8_t le, uint8_t sdo) {
   SDI = sdi;
   CLK = clk;
   OE = oe;
@@ -33,44 +33,45 @@ TLC5916::TLC5916(uint8_t sdi, uint8_t clk, uint8_t oe, uint8_t le, uint8_t sdo) 
   digitalWrite(OE, HIGH);
 }
 
-void TLC5916::transmit(uint8_t p, uint8_t c, bool l) {
+void TLC5916_Lite::transmit(uint8_t p, uint8_t c, bool l) {
 	sendBits(p, 0, 0, c);
 	if(l) pulseLatch();
 }
 
-void TLC5916::enableOutput() {
+void TLC5916_Lite::enableOutput() {
 	digitalWrite(OE, LOW);
 }
-void TLC5916::disableOutput() {
+void TLC5916_Lite::disableOutput() {
 	digitalWrite(OE, HIGH);
 }
 
-void TLC5916::allOn(uint8_t n) {
+void TLC5916_Lite::allOn(uint8_t n) {
 	for(int i = 0; i < n - 1; i++) {
 		transmit(ALL_ON, PACKET_FULL, false);
 	}	
 	transmit(ALL_ON, PACKET_FULL, true);
 }
-void TLC5916::allOff(uint8_t n) {	
+void TLC5916_Lite::allOff(uint8_t n) {
+	
 	for(int i = 0; i < n - 1; i++) {
 		transmit(ALL_OFF, PACKET_FULL, false);
 	}	
 	transmit(ALL_OFF, PACKET_FULL, true);
 }
 
-void TLC5916::switchToSpecialMode() {
+void TLC5916_Lite::switchToSpecialMode() {
 	sendBits(DATA_NULL, STSM_OE, STSM_LE, PACKET_MODE);
 }
 
-void TLC5916::switchToNormalMode() {	
+void TLC5916_Lite::switchToNormalMode() {	
 	sendBits(DATA_NULL, STNM_OE, STNM_LE, PACKET_MODE);
 }
 
-void TLC5916::writeConfiguration(uint8_t c) {
+void TLC5916_Lite::writeConfiguration(uint8_t c) {
 	sendBits(c, WCC_OE, WCC_LE, PACKET_FULL);
 }
 
-uint8_t TLC5916::readErrorCodeStatus() {	
+uint8_t TLC5916_Lite::readErrorCodeStatus() {	
 	uint8_t reading = 0;	
 	generateErrorCodeStatus();
 	digitalWrite(CLK, HIGH);
@@ -80,8 +81,8 @@ uint8_t TLC5916::readErrorCodeStatus() {
 	}
 	digitalWrite(CLK, LOW);  
 	for(uint8_t i = 0; i < 7; i++) {		
-		reading = reading << 1;    
-		digitalWrite(CLK, HIGH);    
+    reading = reading << 1;    
+    digitalWrite(CLK, HIGH);    
 		if(  digitalRead(SDO) ) {
 			reading++;
 		}
@@ -97,9 +98,10 @@ uint8_t TLC5916::readErrorCodeStatus() {
  * These methods are better left alone.  Should find all you need above.
  */
 
-void TLC5916::sendBits(uint8_t d, uint8_t o, uint8_t l, uint8_t c) {
+void TLC5916_Lite::sendBits(uint8_t d, uint8_t o, uint8_t l, uint8_t c) {
   uint8_t bitMask = 1;
-  for(uint8_t i = 0; i < c; i++) {  
+  for(uint8_t i = 0; i < c; i++) {
+  
     digitalWrite(SDI, (d & bitMask) > 0);
     digitalWrite(OE, (o & bitMask) > 0);
     digitalWrite(LE, (l & bitMask) > 0);
@@ -110,17 +112,17 @@ void TLC5916::sendBits(uint8_t d, uint8_t o, uint8_t l, uint8_t c) {
   digitalWrite(SDI, LOW);
 }
 
-void TLC5916::pulseLatch() {
+void TLC5916_Lite::pulseLatch() {
   digitalWrite(LE, HIGH);
   digitalWrite(LE, LOW);
 }
 
-void TLC5916::latchHigh() {
+void TLC5916_Lite::latchHigh() {
   digitalWrite(LE, HIGH);
 }
-void TLC5916::latchLow() {
+void TLC5916_Lite::latchLow() {
   digitalWrite(LE, LOW);
 }
-void TLC5916::generateErrorCodeStatus() {
+void TLC5916_Lite::generateErrorCodeStatus() {
   sendBits(0, 1, 0, 8);
 }
