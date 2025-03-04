@@ -1,4 +1,4 @@
-TLC5916_Lite	KEYWORD1
+TLC5916	KEYWORD1
 transmit	KEYWORD2
 enableOutput	KEYWORD3
 disableOutput	KEYWORD4
