@@ -8,7 +8,7 @@
  *  Documentation: http://www.danielnebert.com/tlc5916-lite-arduino-driver-library/
  */ 
 
-#include "TLC5916_Lite.h"
+#include "TLC5916.h"
 
 #define SDI       5
 #define CLK       4
@@ -16,7 +16,7 @@
 #define SDO       9
 #define OE        8
 
-TLC5916_Lite tlc = TLC5916_Lite(SDI, CLK, OE, LE, SDO);
+TLC5916 tlc = TLC5916(SDI, CLK, OE, LE, SDO);
 
 void setup() {
   Serial.begin(115200);
