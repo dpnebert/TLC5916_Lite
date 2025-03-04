@@ -11,7 +11,7 @@
 
 
 
-#include <TLC5916.h>
+#include <TLC5916_Lite.h>
 
 #define SDI       5
 #define CLK       4
@@ -19,7 +19,7 @@
 #define SDO       9
 #define OE        8
 
-TLC5916 tlc = TLC5916(SDI, CLK, OE, LE, SDO);
+TLC5916_Lite tlc = TLC5916_Lite(SDI, CLK, OE, LE, SDO);
 
 uint8_t count;
 
